@@ -1,0 +1,181 @@
+# Flutter Sound Generator PWA
+
+A Progressive Web App (PWA) built with Flutter Web that generates audio tones with customizable frequency and wave types. Installable on any device with a modern browser.
+
+## Features
+
+### Frequency Control
+- **Range**: 1 Hz to 20,000 Hz
+- **Slider control** for easy frequency adjustment
+- **Numeric input** for precise frequency selection
+- **Real-time frequency display**
+
+### Wave Types
+The app supports multiple wave forms:
+
+| Wave Type | Description |
+|-----------|-------------|
+| **Sine** | Smooth, pure tone - natural and pleasant sound |
+| **Square** | Sharp, buzzy tone - retro/8-bit style sound |
+| **Triangle** | Softer than square, mellower tone |
+| **Sawtooth** | Bright, harsh tone - rich in harmonics |
+| **Piezo** | Simulates piezoelectric buzzer sound - sharp, piercing alert tone |
+
+### User Interface
+
+| Section | Component | Description |
+|---------|-----------|-------------|
+| **Header** | App Title | "Sound Generator" |
+| **Frequency Display** | Digital Display | Shows current frequency (e.g., "440 Hz") |
+| **Frequency Control** | Slider | Range: 1 Hz - 20,000 Hz |
+| **Frequency Control** | Text Input | Manual frequency entry |
+| **Wave Selection** | Radio Buttons | Sine, Square, Triangle, Sawtooth, Piezo |
+| **Playback** | Play Button | Start tone generation |
+| **Playback** | Stop Button | Stop tone generation |
+| **Volume** | Volume Slider | Adjust output level (0-100%) |
+
+## Technical Requirements
+
+### Dependencies
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+```
+
+### Web Audio API
+The app uses the **Web Audio API** directly via `dart:js_interop` for audio generation:
+
+| API Component | Purpose |
+|---------------|----------|
+| `AudioContext` | Main audio processing graph |
+| `OscillatorNode` | Generates waveforms (sine, square, triangle, sawtooth) |
+| `GainNode` | Controls volume output |
+| `PeriodicWave` | Custom waveform for Piezo simulation |
+
+### PWA Features
+
+| Feature | Description |
+|---------|-------------|
+| **Installable** | Add to home screen on mobile/desktop |
+| **Offline Support** | Works without internet after first load |
+| **Responsive** | Adapts to mobile, tablet, and desktop |
+| **Service Worker** | Caches assets for instant loading |
+| **Web Manifest** | Custom app icon and splash screen |
+
+### Browser Support
+
+| Browser | Support |
+|---------|----------|
+| Chrome | ✅ Full |
+| Firefox | ✅ Full |
+| Safari | ✅ Full |
+| Edge | ✅ Full |
+| Mobile Chrome | ✅ Full |
+| Mobile Safari | ✅ Full |
+
+## Core Functionality
+
+### 1. Frequency Selection
+- Logarithmic slider for natural frequency perception
+- Preset buttons for common frequencies (A4 = 440Hz, etc.)
+- Input validation to keep within 1-20000 Hz range
+
+### 2. Wave Generation
+- Real-time audio synthesis
+- Smooth transitions between frequencies
+- Volume control (0-100%)
+
+### 3. Piezo Mode
+Special mode that simulates piezoelectric buzzer characteristics:
+- Sharp attack and decay
+- High-frequency emphasis
+- Pulsed output option for alarm-style sounds
+
+## UI Components
+
+| Component | Purpose |
+|-----------|---------|
+| `FrequencySlider` | Main frequency control (1-20000 Hz) |
+| `FrequencyDisplay` | Shows current frequency value |
+| `WaveTypeSelector` | Radio buttons/chips for wave selection |
+| `PlayButton` | Start/stop audio playback |
+| `VolumeSlider` | Adjust output volume |
+
+## Getting Started
+
+### Development
+1. Clone the repository
+2. Run `flutter pub get`
+3. Run `flutter run -d chrome`
+
+### Build for Production
+```bash
+flutter build web --release --web-renderer html
+```
+
+### Deploy as PWA
+1. Build the web release
+2. Deploy contents of `build/web/` to your web server
+3. Ensure HTTPS is enabled (required for PWA features)
+
+### PWA Configuration Files
+
+| File | Purpose |
+|------|----------|
+| `web/manifest.json` | App metadata, icons, theme colors |
+| `web/index.html` | PWA meta tags and service worker registration |
+| `web/flutter_service_worker.js` | Auto-generated caching service worker |
+
+## File Structure
+
+```
+lib/
+├── main.dart
+├── screens/
+│   └── sound_generator_screen.dart
+├── widgets/
+│   ├── frequency_slider.dart
+│   ├── wave_type_selector.dart
+│   └── play_button.dart
+├── services/
+│   └── web_audio_service.dart      # Web Audio API integration
+└── models/
+    └── wave_type.dart
+
+web/
+├── index.html                       # PWA meta tags
+├── manifest.json                    # PWA manifest
+├── icons/
+│   ├── Icon-192.png
+│   ├── Icon-512.png
+│   └── Icon-maskable-192.png
+└── favicon.png
+```
+
+## Future Enhancements
+
+| Feature | Priority |
+|---------|----------|
+| Multiple simultaneous tones | Medium |
+| Frequency sweep mode | Low |
+| Save/load presets (LocalStorage) | High |
+| Audio recording (MediaRecorder API) | Medium |
+| Spectrum visualizer (AnalyserNode) | Low |
+| Binaural beats mode | Low |
+| Share frequency via URL params | High |
+
+## PWA Checklist
+
+| Requirement | Status |
+|-------------|--------|
+| HTTPS | Required for deployment |
+| Service Worker | Auto-generated by Flutter |
+| Web Manifest | Configure in `web/manifest.json` |
+| Responsive Design | Material 3 adaptive layouts |
+| Touch-friendly UI | Large tap targets, gestures |
+| Fast loading | Code splitting, lazy loading |
+
+## License
+
+MIT License
