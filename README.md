@@ -176,6 +176,9 @@ web/
 | Touch-friendly UI | Large tap targets, gestures |
 | Fast loading | Code splitting, lazy loading |
 
+## Author
+Ashley Peake
+
 ## License
 
 MIT License
